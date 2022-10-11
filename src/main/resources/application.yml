@@ -1,0 +1,23 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: '@project.name@'
+  servlet:
+#    ????
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  profiles:
+    active: prod
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yxproj.yxproject
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
