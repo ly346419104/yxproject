@@ -34,6 +34,7 @@ public class UserController {
     @GetMapping("list")
     public JsonResult list() {
         List<User> list = iUserService.list();
+        System.out.println("test");
         return new JsonResult(HttpStatus.OK, "", list);
     }
 }
