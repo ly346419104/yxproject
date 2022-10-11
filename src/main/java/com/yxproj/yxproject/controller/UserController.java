@@ -37,4 +37,5 @@ public class UserController {
         System.out.println("test");
         return new JsonResult(HttpStatus.OK, "", list);
     }
+
 }
