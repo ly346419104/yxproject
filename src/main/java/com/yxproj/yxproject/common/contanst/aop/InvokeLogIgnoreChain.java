@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 忽略处理执行链
  *
- * @author shaokang_yuan
+ * @author ly
  * @see IInvokeLogIgnoreHandler
  */
 public class InvokeLogIgnoreChain {
@@ -25,6 +25,7 @@ public class InvokeLogIgnoreChain {
     }
 
     public boolean check(ProceedingJoinPoint proceedingJoinPoint) {
+
         for (IInvokeLogIgnoreHandler chain : handlerList) {
             if (chain.check(proceedingJoinPoint)) return true;
         }

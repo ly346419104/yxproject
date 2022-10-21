@@ -1,7 +1,8 @@
 package com.yxproj.yxproject.common.contanst.aop;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.yxproj.yxproject.common.contanst.IgnoreLog;
 import com.yxproj.yxproject.common.contanst.JsonResult;
 import com.yxproj.yxproject.common.contanst.Util.NetworkUtil;
 import com.yxproj.yxproject.common.contanst.Util.WebContextUtil;
@@ -13,6 +14,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.CodeSignature;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -21,6 +23,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -64,8 +68,17 @@ public class  InvokeLogAspect {
 
     @Around(value = "pointCut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        if (USER_LOG_IGNORE_CHAIN.check(proceedingJoinPoint)) {
-            return proceedingJoinPoint.proceed();
+//        if (USER_LOG_IGNORE_CHAIN.check(proceedingJoinPoint)) {
+//            return proceedingJoinPoint.proceed();
+//        }
+        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method1 = signature.getMethod();
+        Annotation[] declaredAnnotations = method1.getDeclaredAnnotations();
+
+        for (int i = 0; i < declaredAnnotations.length; i++) {
+            if (declaredAnnotations[i] instanceof IgnoreLog) {
+                return null;
+            }
         }
         Object proceed = null;
         InvokeLogVO invokeLog = InvokeLogVO.builder().build();
@@ -230,6 +243,9 @@ public class  InvokeLogAspect {
                 paramMap.put(names[i], value);
             }
         }
+//        class t_class t_student name class subject score
+
+//        select studentName,max(score) from student where subject="math" group by studentName
         try {
             return JSON.toJSONString(paramMap);
         } catch (Exception e) {
