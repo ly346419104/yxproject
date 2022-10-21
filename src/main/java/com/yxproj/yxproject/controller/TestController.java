@@ -1,6 +1,6 @@
 package com.yxproj.yxproject.controller;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.yxproj.yxproject.common.contanst.JsonResult;
 import com.yxproj.yxproject.vo.TestPost;
@@ -33,4 +33,29 @@ public class TestController {
         return new JsonResult(HttpStatus.OK,"objectObjectHashMap",map);
 
     }
+   /* @Autowired
+    private IUserService iUserService;
+
+    @PostMapping("add")
+    public JsonResult add(@RequestBody UserVo userVo, BindingResult bindResult) {
+        if (bindResult.hasErrors()) {
+            return new JsonResult(HttpStatus.BAD_REQUEST, bindResult.getFieldError().getDefaultMessage());
+        }
+        User user = BeanUtil.toBean(userVo, User.class);
+        boolean save = iUserService.save(user);
+        if (save) {
+            return new JsonResult(HttpStatus.OK, "添加成功");
+        } else {
+            return new JsonResult(HttpStatus.BAD_REQUEST, "添加失败");
+
+        }
+    }
+
+    @GetMapping("list")
+    public JsonResult list(@RequestParam(value = "name", required = false) String name) {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(StringUtils.hasText(name), User::getName, name);
+        List<User> list = iUserService.list(lambdaQueryWrapper);
+        return new JsonResult(HttpStatus.OK, "查询成功", list);
+    }*/
 }

@@ -1,15 +1,19 @@
 package com.yxproj.yxproject.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yxproj.yxproject.common.contanst.JsonResult;
+import com.yxproj.yxproject.common.contanst.aop.InvokeLogIgnore;
 import com.yxproj.yxproject.entity.User;
 import com.yxproj.yxproject.service.IUserService;
+import com.yxproj.yxproject.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -18,25 +22,36 @@ import java.util.List;
  * </p>
  *
  * @author ly
- * @since 2022-10-11
+ * @since 2022-10-21
  */
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private IUserService iUserService;
+    @PostMapping("add")
+//    @IgnoreLog
+    @InvokeLogIgnore
+    public JsonResult add(     @Valid
+                                   @RequestBody UserVo userVo) {
+//        if (bindResult.hasErrors()) {
+//            return new JsonResult(HttpStatus.BAD_REQUEST, bindResult.getFieldError().getDefaultMessage());
+//        }
+        User user = BeanUtil.toBean(userVo, User.class);
+        boolean save = iUserService.save(user);
+        if (save) {
+            return new JsonResult(HttpStatus.OK, "添加成功");
+        } else {
+            return new JsonResult(HttpStatus.BAD_REQUEST, "添加失败");
 
-    @GetMapping("getAll")
-    public JsonResult getAll() {
-        List<User> list = iUserService.getAll();
-        return new JsonResult(HttpStatus.OK, "", list);
+        }
     }
+
     @GetMapping("list")
-    public JsonResult list() {
-        List<User> list = iUserService.list();
-        System.out.println("test");
-        return new JsonResult(HttpStatus.OK, "", list);
+    public JsonResult list(@RequestParam(value = "name", required = false) String name) {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(StringUtils.hasText(name), User::getName, name);
+        List<User> list = iUserService.list(lambdaQueryWrapper);
+        return new JsonResult(HttpStatus.OK, "查询成功", list);
     }
-
-
 }

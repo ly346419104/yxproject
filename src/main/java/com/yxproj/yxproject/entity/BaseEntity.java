@@ -10,20 +10,19 @@ import java.util.Date;
 
 @Data
 public class BaseEntity<U extends BaseEntity> {
-    @TableId(value = "id", type = IdType.AUTO)
-
-    private Long id;
-    @TableField("isdeleted")
-
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private String id;
+    @TableField("is_deleted")
     private Boolean isDeleted;
-    @TableField(value = "creationtime", fill = FieldFill.INSERT)
+    @TableField(value = "creation_time", fill = FieldFill.INSERT)
     private Date creationTime;
-    @TableField(value = "modifytime", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
     private Date modifyTime;
-    @TableField("creatorUserId")
-    private String creatorUser;
-    @TableField("deleterUserId")
+    @TableField("creator_userId")
+    private String creatorUserId;
+    @TableField("deleter_userId")
     private String deleterUserId;
+
 }
 
 
