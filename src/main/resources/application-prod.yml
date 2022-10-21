@@ -6,7 +6,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/waimai?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8&useAffectedRows=true
+      url: jdbc:mysql://localhost:3306/yxproject?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8&useAffectedRows=true
       username: root
       password: 123456
       filters: stat,config
@@ -23,4 +23,13 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
-
+  redis:
+    host: 192.168.0.102
+    port: 6379
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
