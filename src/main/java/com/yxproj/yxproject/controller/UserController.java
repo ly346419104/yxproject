@@ -1,7 +1,6 @@
 package com.yxproj.yxproject.controller;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yxproj.yxproject.common.contanst.JsonResult;
 import com.yxproj.yxproject.common.contanst.aop.InvokeLogIgnore;
@@ -34,11 +33,9 @@ public class UserController {
     @InvokeLogIgnore
     public JsonResult add(     @Valid
                                    @RequestBody UserVo userVo) {
-//        if (bindResult.hasErrors()) {
-//            return new JsonResult(HttpStatus.BAD_REQUEST, bindResult.getFieldError().getDefaultMessage());
-//        }
-        User user = BeanUtil.toBean(userVo, User.class);
-        boolean save = iUserService.save(user);
+
+
+        boolean save = iUserService.insert(userVo);
         if (save) {
             return new JsonResult(HttpStatus.OK, "添加成功");
         } else {

@@ -81,7 +81,7 @@ public class MybatisGenerator {
                 )
 
                 // 策略配置
-                .strategyConfig(builder -> builder.addInclude("t_user")
+                .strategyConfig(builder -> builder.addInclude("t_user_role")
 
                                 .addTablePrefix("t_")
 

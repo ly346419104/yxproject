@@ -21,3 +21,14 @@ mybatis-plus:
   configuration:
     cache-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+jwt:
+#  ignoreUrlList:  /account-api/loginApp,/websocket,/UserConsumer/login,/UserConsumer/showInfos,/account-api/phoneSendCode,/account-api/registerApp,/account-api/refreshToken,/face-api/faceLogin,/account-api/loginAgent,/account-api/forgetPassword,/account-api/loginPC,/thandlesubrecord/getStatusCount,/thandlesubrecord/getrecord,/account-api/getInlineNum,/account-api/registerApp,/account-api/forceLoginOut,/tArea/getAreaList,/tuserSingnature/writeEwm,/MediaCenter/uploadSignDocH5,/fileConvert/GetDocPdf,/MediaCenter/uploadSignWithDocH5,/MediaCenter/base64FileUpload,/tArea/getAreaCategoryByCode,/tcasemanagement/getListByArea,/tcasemanagement/casemanagementList,/tcasemanagement/getTuiJianListByUserId,/tcasemanagement/getHandleCaseNum,/tcasemanagement/getInfo,/tnotice/tnoticeList,/tnotice/tnoticeDetail,/thandlesubrecord/getBanJianItems,/account-api/logout,/tcasemanagement/getListByAgent,/tArea/getAreaCategory,/tconsultationquestionlibrary/getQuestions,/tconsultationquestionlibrary/getAnswer,/tconsultationquestionlibrary/question,/machinereplymessage/machinereplyList,/machinereplymessage/machinereplyDetail,/tsystemmessage/getSystemMessage,/account-api/setLoginRedis,/tversion/getTVersionList,/monitor-api/gateway-log/findLogs,/thotword/list,/monitor-api/User/login,/monitor-api/User/register,/tpolicy/getTPolicyList,/tpolicy/getTPolicyByid,/tpolicy/updateTPolicy,/tnews/getTNewsList,/tnews/getHotspotTNewsList,/tnews/getTNewsByid,/tnews/updateTNews,/tcasemanagement/getHPCase,/tcasemanagement/getHPClassCase,/tArea/getClassByAreaCode,/message-api/intelligent/voice/send,/account-api/UARCLogin
+  token_prefix: Bearer
+  jwtSecret: reload
+  token:
+    expire:
+      time: 1800000
+  refresh:
+    token:
+      expire:
+        time: 43200000

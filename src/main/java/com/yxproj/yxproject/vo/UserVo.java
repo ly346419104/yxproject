@@ -3,6 +3,7 @@ package com.yxproj.yxproject.vo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 public class UserVo  {
@@ -18,4 +19,7 @@ public class UserVo  {
     private String cardNo;
     @NotBlank(message = "手机号不能为空")
     private String mobilePhone;
+    private List<String>roles;
+//    private List<String>permissions;
+
 }
